@@ -1,0 +1,24 @@
+sudo: required
+#specify docker as a dependency
+services:
+    - docker
+#build test version of react project
+before_install:
+    - docker build -t ananda-raj/react-test -f ./client/Dockerfile.dev ./client
+#run test
+script:
+    - docker run ananda-raj/study-multi-docker npm test -- --coverage
+#build prod version of all projects
+after_success:
+    - docker build -t ananda-raj/multi-client ./client
+    - docker build -t ananda-raj/multi-nginx ./nginx
+    - docker build -t ananda-raj/multi-server ./server
+    - docker build -t ananda-raj/multi-worker ./worker
+#login to docker
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#push all to docker hub
+- docker push ananda-raj/multi-client
+- docker push ananda-raj/multi-nginx
+- docker push ananda-raj/multi-server
+- docker push ananda-raj/multi-worker
+#tell EB to update
