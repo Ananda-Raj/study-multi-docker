@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 #specify docker as a dependency
 services:
