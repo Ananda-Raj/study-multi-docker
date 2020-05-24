@@ -18,8 +18,8 @@ after_success:
 #login to docker
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #push all to docker hub
-    - docker push vanandaraj0001/multi-client
     - docker push vanandaraj0001/multi-nginx
     - docker push vanandaraj0001/multi-server
     - docker push vanandaraj0001/multi-worker
-#tell EB to update
+    - docker push vanandaraj0001/multi-client
+    #tell EB to update
