@@ -25,11 +25,10 @@ after_success:
 #tell EB to update
 deploy:
     provider: elasticbeanstalk
-    region: ap-south-1
-    app: multi-docker-a
-    env: MultiDockerA-env
-    bucket_name: elasticbeanstalk-ap-south-1-605809005095
-    bucket_path: multi-docker
+    region: "ap-south-1"
+    app: "multi-docker-a"
+    env: "MultiDockerA-env"
+    bucket_path: "multi-docker"
     on:
         branch: master
     access_key_id: $AWS_ACCESS_KEY
