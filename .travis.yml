@@ -18,8 +18,19 @@ after_success:
 #login to docker
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #push all to docker hub
+    - docker push vanandaraj0001/multi-client
     - docker push vanandaraj0001/multi-nginx
     - docker push vanandaraj0001/multi-server
     - docker push vanandaraj0001/multi-worker
-    - docker push vanandaraj0001/multi-client
-    #tell EB to update
+#tell EB to update
+deploy:
+    provider: elasticbeanstalk
+    region: ap-south-1
+    app: multi-docker-a
+    env: MultiDockerA-env
+    bucket_name: elasticbeanstalk-ap-south-1-605809005095
+    bucket_path: multi-docker
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
